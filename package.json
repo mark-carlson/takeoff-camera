@@ -16,7 +16,8 @@
     "expo-barcode-scanner": "~7.0.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^7.0.0"
+    "babel-preset-expo": "^7.0.0",
+    "ws": ">=3.3.1"
   },
   "private": true
 }
