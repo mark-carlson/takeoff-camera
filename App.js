@@ -5,6 +5,29 @@ import * as Permissions from 'expo-permissions';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  text: {
+    marginBottom: 40,
+  },
+  code: {
+    fontSize: 30,
+    padding: 15,
+    borderColor: 'red',
+    borderRadius: 15,
+    borderStyle: 'solid',
+    borderWidth: 5
+  },
+  type: {
+    fontSize: 20
+  }
+})
+
 export default class BarcodeScannerExample extends Component {
   state = {
     hasCameraPermission: null,
@@ -32,12 +55,7 @@ export default class BarcodeScannerExample extends Component {
       return <Text>No access to camera</Text>;
     }
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }}>
+      <View style={styles.container} >
         {!this.state.scanned && <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
@@ -45,8 +63,8 @@ export default class BarcodeScannerExample extends Component {
 
         {scanned && (
           <Fragment>
-          <Text>{`Type: ${this.state.type}`}</Text>
-          <Text>{`Code: ${this.state.data}`}</Text>
+          <Text style={[styles.text, styles.type]}>{`${this.state.type}`}</Text>
+          <Text style={[styles.text, styles.code]}>{`${this.state.data}`}</Text>
           <Button  title={'Tap to Scan Again'} onPress={() => this.setState({ scanned: false })} />
           </Fragment>
         )}
@@ -56,6 +74,5 @@ export default class BarcodeScannerExample extends Component {
 
   handleBarCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true, data, type });
-    //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 }
